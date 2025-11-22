@@ -20,6 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -254,7 +256,7 @@ public class SystemTerminationConfig {
 
     @Bean
     @JobScope
-    public Tasklet systemDestructionTasklet(
+    public Tasklet jobscopeSystemDestructionTasklet(
             @Value("#{jobExecutionContext['previousSystemState']}") String prevState
     ) {
         // JobExecution의 ExecutionContext에서 이전 시스템 상태를 주입받는다
@@ -270,5 +272,8 @@ public class SystemTerminationConfig {
             @Value("#{stepExecutionContext['targetSystemStatus']}") String targetStatus
     ) {
         // StepExecution의 ExecutionContext에서 타겟 시스템 상태를 주입받는다
+        return (contribution, chunkContext) -> {
+            return RepeatStatus.FINISHED;
+        };
     }
 }
