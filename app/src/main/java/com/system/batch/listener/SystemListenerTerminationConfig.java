@@ -18,7 +18,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
 @Component
-public class SystemTerminationConfig {
+public class SystemListenerTerminationConfig {
     @Bean
     public Job systemTerminationJob(JobRepository jobRepository, Step scanningStep, Step eliminationStep) {
         return new JobBuilder("systemTerminationJob", jobRepository)

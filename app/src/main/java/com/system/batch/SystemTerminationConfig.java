@@ -20,8 +20,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -38,11 +36,13 @@ public class SystemTerminationConfig {
         this.transactionManager = transactionManager;
     }
 
-    @Bean
-    // json 형식의 잡 파라미터 변환기를 빈으로 등록
-    public JobParametersConverter jobParametersConverter() {
-        return new JsonJobParametersConverter();
-    }
+
+//    @Bean
+//    // json 형식의 잡 파라미터 변환기를 빈으로 등록
+    // 하지만 여러 형식을 받지 못하는 이슈가 존재한다.
+//    public JobParametersConverter jobParametersConverter() {
+//        return new JsonJobParametersConverter();
+//    }
 
     @Bean
     public Job systemTerminationSimulationJob() {
